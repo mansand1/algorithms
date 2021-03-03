@@ -182,122 +182,43 @@ class TestFenwickTree(unittest.TestCase):
 class TestBST(unittest.TestCase):
     def setUp(self):
         self.tree = bst.BST()
+        self.tree.insert(9)
+        self.tree.insert(6)
+        self.tree.insert(12)
+        self.tree.insert(3)
+        self.tree.insert(8)
         self.tree.insert(10)
         self.tree.insert(15)
-        self.tree.insert(6)
-        self.tree.insert(4)
-        self.tree.insert(9)
-        self.tree.insert(12)
-        self.tree.insert(24)
         self.tree.insert(7)
-        self.tree.insert(20)
-        self.tree.insert(30)
         self.tree.insert(18)
 
     def test_search(self):
-        self.assertTrue(self.tree.search(24))
-        self.assertFalse(self.tree.search(50))
+        self.assertTrue(self.tree.search(12))
+        self.assertFalse(self.tree.search(20))
 
     def test_size(self):
-        self.assertEqual(11, self.tree.size())
-
-class TestCountLeftNode(unittest.TestCase):
-    def setUp(self):
-        self.tree = bst.BST()
-        self.tree.insert(9)
-        self.tree.insert(6)
-        self.tree.insert(12)
-        self.tree.insert(3)
-        self.tree.insert(8)
-        self.tree.insert(10)
-        self.tree.insert(15)
-        self.tree.insert(7)
-        self.tree.insert(18)
+        self.assertEqual(9, self.tree.size())
 
     def test_count_left_node(self):
         self.assertEqual(4, count_left_node(self.tree.root))
-        
-class TestDepthSum(unittest.TestCase):
-    """
-    The tree is created for testing:
-
-                    9
-            
-               6         12
-       
-            3     8   10      15
-             
-                7                18
-
-    depth_sum = 1*9 + 2*(6+12) + 3*(3+8+10+15) + 4*(7+18)
-
-"""
-    def setUp(self):
-        self.tree = bst.BST()
-        self.tree.insert(9)
-        self.tree.insert(6)
-        self.tree.insert(12)
-        self.tree.insert(3)
-        self.tree.insert(8)
-        self.tree.insert(10)
-        self.tree.insert(15)
-        self.tree.insert(7)
-        self.tree.insert(18)
 
     def test_depth_sum(self):
         self.assertEqual(253, depth_sum(self.tree.root, 4))
 
-
-class TestHeight(unittest.TestCase):
-    def setUp(self):
-        self.tree = bst.BST()
-        self.tree.insert(9)
-        self.tree.insert(6)
-        self.tree.insert(12)
-        self.tree.insert(3)
-        self.tree.insert(8)
-        self.tree.insert(10)
-        self.tree.insert(15)
-        self.tree.insert(7)
-        self.tree.insert(18)
-
     def test_height(self):
         self.assertEqual(4, height(self.tree.root))
- 
-class TestNumEmpty(unittest.TestCase):
-    def setUp(self):
-        self.tree = bst.BST()
-        self.tree.insert(9)
-        self.tree.insert(6)
-        self.tree.insert(12)
-        self.tree.insert(3)
-        self.tree.insert(8)
-        self.tree.insert(10)
-        self.tree.insert(15)
-        self.tree.insert(7)
-        self.tree.insert(18)
 
     def test_num_empty(self):
         self.assertEqual(10, num_empty(self.tree.root))  
-
-class TestDeleteNode(unittest.TestCase):
-    def setUp(self):
-        self.tree = bst.BST()
-        self.tree.insert(9)
-        self.tree.insert(6)
-        self.tree.insert(12)
-        self.tree.insert(3)
-        self.tree.insert(8)
-        self.tree.insert(10)
-        self.tree.insert(15)
-        self.tree.insert(7)
-        self.tree.insert(18)
 
     def test_delete_node(self):
         self.assertEqual(True, self.tree.search(18))
         delete_node(self.tree.get_root(), 18)
         self.assertEqual(False, self.tree.search(18))
-        self.tree.insert(18)  
+        self.setUp()
+
         
+    
+    
 if __name__ == '__main__':
     unittest.main()
