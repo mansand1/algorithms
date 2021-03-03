@@ -1,4 +1,3 @@
-from tree.tree import TreeNode
 
 
 def min_depth(self, root):
@@ -31,24 +30,3 @@ def min_height(root):
                 new_level.append(node.right)
         level = new_level
     return height
-
-
-def print_tree(root):
-    if root is not None:
-        print(root.val)
-        print_tree(root.left)
-        print_tree(root.right)
-
-
-if __name__ == '__main__':
-    tree = TreeNode(10)
-    tree.left = TreeNode(12)
-    tree.right = TreeNode(15)
-    tree.left.left  = TreeNode(25)
-    tree.left.left.right  = TreeNode(100)
-    tree.left.right = TreeNode(30)
-    tree.right.left = TreeNode(36)
-
-    height = min_height(tree)
-    print_tree(tree)
-    print("height:", height)

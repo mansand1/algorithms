@@ -12,8 +12,6 @@ longest path from the root node down to the farthest leaf node.
 
 # iterative
 
-from tree.tree import TreeNode
-
 
 def max_height(root):
     if root is None:
@@ -32,23 +30,3 @@ def max_height(root):
         queue = level
     return height
 
-
-def print_tree(root):
-    if root is not None:
-        print(root.val)
-        print_tree(root.left)
-        print_tree(root.right)
-
-
-if __name__ == '__main__':
-    tree = TreeNode(10)
-    tree.left = TreeNode(12)
-    tree.right = TreeNode(15)
-    tree.left.left = TreeNode(25)
-    tree.left.left.right = TreeNode(100)
-    tree.left.right = TreeNode(30)
-    tree.right.left = TreeNode(36)
-
-    height = max_height(tree)
-    print_tree(tree)
-    print("height:", height)
