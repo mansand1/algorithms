@@ -18,6 +18,7 @@ from algorithms.tree.bst.count_left_node import count_left_node
 from algorithms.tree.bst.depth_sum import depth_sum
 from algorithms.tree.bst.height import height
 from algorithms.tree.bst.num_empty import num_empty
+from algorithms.tree.bst.delete_node import delete_node
 
 import unittest
 
@@ -277,7 +278,26 @@ class TestNumEmpty(unittest.TestCase):
         self.tree.insert(18)
 
     def test_num_empty(self):
-        self.assertEqual(10, num_empty(self.tree.root))       
+        self.assertEqual(10, num_empty(self.tree.root))  
+
+class TestDeleteNode(unittest.TestCase):
+    def setUp(self):
+        self.tree = bst.BST()
+        self.tree.insert(9)
+        self.tree.insert(6)
+        self.tree.insert(12)
+        self.tree.insert(3)
+        self.tree.insert(8)
+        self.tree.insert(10)
+        self.tree.insert(15)
+        self.tree.insert(7)
+        self.tree.insert(18)
+
+    def test_delete_node(self):
+        self.assertEqual(True, self.tree.search(18))
+        delete_node(self.tree.get_root(), 18)
+        self.assertEqual(False, self.tree.search(18))
+        self.tree.insert(18)  
         
 if __name__ == '__main__':
     unittest.main()
