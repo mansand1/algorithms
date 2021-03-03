@@ -26,6 +26,6 @@ def recur_depth_sum(root, n):
     if root is None:
         return 0
     elif root.left is None and root.right is None:
-        return root.data * n
+        return root.val * n
     else:
-        return n * root.data + recur_depth_sum(root.left, n+1) + recur_depth_sum(root.right, n+1)
+        return n * root.val + recur_depth_sum(root.left, n+1) + recur_depth_sum(root.right, n+1)

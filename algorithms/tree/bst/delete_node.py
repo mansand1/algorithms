@@ -45,7 +45,7 @@ def delete_node(root, key):
     """
     if not root: return None
 
-    if root.data == key:
+    if root.val == key:
         if root.left:
             # Find the right most leaf of the left sub-tree
             left_right_most = root.left
@@ -58,7 +58,7 @@ def delete_node(root, key):
         else:
             return root.right
     # If left or right child got deleted, the returned root is the child of the deleted node.
-    elif root.data > key:
+    elif root.val > key:
         root.left = delete_node(root.left, key)
     else:
         root.right = delete_node(root.right, key)
