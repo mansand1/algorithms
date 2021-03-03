@@ -23,6 +23,7 @@ from algorithms.tree.bst.kth_smallest import kth_smallest
 from algorithms.tree.bst.kth_smallest import Solution as sol_ks
 from algorithms.tree.bst.is_bst import is_bst
 from algorithms.tree.bst.unique_bst import num_trees
+from algorithms.tree.bst.BSTIterator import BSTIterator 
 
 import unittest
 
@@ -239,6 +240,13 @@ class TestBST(unittest.TestCase):
 
     def test_unique_bst(self):
         self.assertEqual(num_trees(3), 5)
+
+    def test_bst_iterator(self):
+        iterator = BSTIterator(self.tree.get_root())
+        found_nodes = []
+        while(iterator.has_next()):
+            found_nodes.append(iterator.next())
+        self.assertEqual([3, 6, 7, 8, 9, 10, 12, 15, 18], found_nodes)
     
 if __name__ == '__main__':
     unittest.main()
