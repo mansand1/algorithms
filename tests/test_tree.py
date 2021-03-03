@@ -27,6 +27,7 @@ from algorithms.tree.bst.BSTIterator import BSTIterator
 from algorithms.tree.bst.array_to_bst import array_to_bst 
 from algorithms.tree.bst.bst_closest_value import closest_value 
 from algorithms.tree.bst.predecessor import predecessor 
+from algorithms.tree.bst.lowest_common_ancestor import lowest_common_ancestor
 
 import unittest
 
@@ -276,6 +277,11 @@ class TestBST(unittest.TestCase):
         self.assertEqual(predecessor(self.tree.get_root(), bst.Node(12)).val, 10)
         self.assertEqual(predecessor(self.tree.get_root(), bst.Node(8)).val, 7)
         self.assertEqual(predecessor(self.tree.get_root(), bst.Node(6)).val, 3)
+    
+    def test_lowest_common_ancestor(self):
+        self.assertEqual(lowest_common_ancestor(self.tree.get_root(), bst.Node(7), bst.Node(18)).val, 9)
+        self.assertEqual(lowest_common_ancestor(self.tree.get_root(), bst.Node(10), bst.Node(18)).val, 12)
+        self.assertEqual(lowest_common_ancestor(self.tree.get_root(), bst.Node(3), bst.Node(7)).val, 6)
         
 
         
