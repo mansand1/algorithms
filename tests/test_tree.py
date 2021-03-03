@@ -26,6 +26,7 @@ from algorithms.tree.bst.unique_bst import num_trees
 from algorithms.tree.bst.BSTIterator import BSTIterator 
 from algorithms.tree.bst.array_to_bst import array_to_bst 
 from algorithms.tree.bst.bst_closest_value import closest_value 
+from algorithms.tree.bst.predecessor import predecessor 
 
 import unittest
 
@@ -269,6 +270,12 @@ class TestBST(unittest.TestCase):
         self.assertEqual(closest_value(self.tree.get_root(), 4.4), 3)
         self.assertEqual(closest_value(self.tree.get_root(), 4.5), 6)
         self.assertEqual(closest_value(self.tree.get_root(), 4.6), 6)
+
+    def test_predecessor(self):
+        self.assertEqual(predecessor(self.tree.get_root(), bst.Node(9)).val, 8)
+        self.assertEqual(predecessor(self.tree.get_root(), bst.Node(12)).val, 10)
+        self.assertEqual(predecessor(self.tree.get_root(), bst.Node(8)).val, 7)
+        self.assertEqual(predecessor(self.tree.get_root(), bst.Node(6)).val, 3)
         
 
         
