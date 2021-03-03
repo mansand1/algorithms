@@ -10,6 +10,10 @@ from algorithms.tree.b_tree import BTree
 
 from algorithms.tree import construct_tree_postorder_preorder as ctpp
 
+from algorithms.tree import tree as Tree
+from algorithms.tree import min_height
+from algorithms.tree import max_height
+
 from algorithms.tree.fenwick_tree.fenwick_tree import Fenwick_Tree
 
 import unittest
@@ -169,6 +173,62 @@ class TestFenwickTree(unittest.TestCase):
         freq[2] += 11
         ft.update_bit(bit_tree, 2, 11)
         self.assertEqual(23, ft.get_sum(bit_tree, 4))
+class TestMinDepth(unittest.TestCase):
+    def createDepth(self, mother, max):
+        if mother.val == max:
+            return None
+        else:
+            mother.left = Tree.TreeNode(mother.val+1)
+            mother.right = Tree.TreeNode(mother.val+1)
+            TestMinDepth.createDepth(self,mother.left, max)
+            TestMinDepth.createDepth(self,mother.right, max)
+            return mother
+    def test_trivial(self):
+        #Test 1
+        myResults = min_height.min_height(TestMinDepth.createDepth(self,Tree.TreeNode(0),5))
+        self.assertEqual(myResults,6)
+        #Test 2
+        myResults = min_height.min_height(TestMinDepth.createDepth(self,Tree.TreeNode(0),8))
+        self.assertEqual(myResults,9)
+        #Test 3
+        myResults = min_height.min_height(TestMinDepth.createDepth(self,Tree.TreeNode(0),2))
+        self.assertEqual(myResults,3)
+        #Test 4
+        myResults = min_height.min_height(TestMinDepth.createDepth(self,Tree.TreeNode(0),15))
+        self.assertEqual(myResults,16)
+    
+        
+class TestMaxHeight(unittest.TestCase):
+    def createDepth(self, mother, max):
+        if mother.val == max:
+            return None
+        else:
+            mother.left = Tree.TreeNode(mother.val+1)
+            mother.right = Tree.TreeNode(mother.val+1)
+            TestMaxHeight.createDepth(self,mother.left, max)
+            TestMaxHeight.createDepth(self,mother.right, max)
+            return mother
+    def test_trivial(self):
+        #Test 1
+        mother = Tree.TreeNode(0)
+        mother.left = TestMaxHeight.createDepth(self, Tree.TreeNode(mother.val+1), 2)
+        mother.right = TestMaxHeight.createDepth(self, Tree.TreeNode(mother.val+1), 4)
+        self.assertEqual(max_height.max_height(mother),5)
+        #Test 2
+        mother = Tree.TreeNode(0)
+        mother.left = TestMaxHeight.createDepth(self, Tree.TreeNode(mother.val+1), 2)
+        mother.right = TestMaxHeight.createDepth(self, Tree.TreeNode(mother.val+1), 6)
+        self.assertEqual(max_height.max_height(mother),7)
+        #Test 3
+        mother = Tree.TreeNode(0)
+        mother.left = TestMaxHeight.createDepth(self, Tree.TreeNode(mother.val+1), 8)
+        mother.right = TestMaxHeight.createDepth(self, Tree.TreeNode(mother.val+1), 4)
+        self.assertEqual(max_height.max_height(mother),9)
+        #Test 4
+        mother = Tree.TreeNode(0)
+        mother.left = TestMaxHeight.createDepth(self, Tree.TreeNode(mother.val+1), 2)
+        mother.right = TestMaxHeight.createDepth(self, Tree.TreeNode(mother.val+1), 1)
+        self.assertEqual(max_height.max_height(mother),3)
 
 if __name__ == '__main__':
     unittest.main()
