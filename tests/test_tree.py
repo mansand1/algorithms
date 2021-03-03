@@ -21,6 +21,7 @@ from algorithms.tree.bst.num_empty import num_empty
 from algorithms.tree.bst.delete_node import delete_node
 from algorithms.tree.bst.kth_smallest import kth_smallest
 from algorithms.tree.bst.kth_smallest import Solution as sol_ks
+from algorithms.tree.bst.is_bst import is_bst
 
 import unittest
 
@@ -223,6 +224,17 @@ class TestBST(unittest.TestCase):
         self.assertEqual(6, kth_smallest(self.tree.get_root(), 2))
         sol = sol_ks()
         self.assertEqual(6, sol.kth_smallest(self.tree.get_root(), 2))
+
+    def test_is_bst(self):
+        good_bst = bst.Node(2)
+        good_bst.left = bst.Node(1)
+        good_bst.right = bst.Node(3)
+        self.assertTrue(is_bst(good_bst))
+
+        bad_bst = bst.Node(1)
+        bad_bst.left = bst.Node(2)
+        bad_bst.right = bst.Node(3)   
+        self.assertFalse(is_bst(bad_bst))        
     
 if __name__ == '__main__':
     unittest.main()
