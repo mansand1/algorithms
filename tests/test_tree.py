@@ -25,6 +25,7 @@ from algorithms.tree.bst.is_bst import is_bst
 from algorithms.tree.bst.unique_bst import num_trees
 from algorithms.tree.bst.BSTIterator import BSTIterator 
 from algorithms.tree.bst.array_to_bst import array_to_bst 
+from algorithms.tree.bst.bst_closest_value import closest_value 
 
 import unittest
 
@@ -261,12 +262,16 @@ class TestBST(unittest.TestCase):
         self.assertEqual(values, found_nodes)
 
         # Check balanced height
-        self.assertEquals(height(root_node), 3)
+        self.assertEqual(height(root_node), 3)
+
+    def test_bst_closest_value(self):
+        self.assertEqual(closest_value(self.tree.get_root(), 10.9), 10)
+        self.assertEqual(closest_value(self.tree.get_root(), 4.4), 3)
+        self.assertEqual(closest_value(self.tree.get_root(), 4.5), 6)
+        self.assertEqual(closest_value(self.tree.get_root(), 4.6), 6)
         
 
-
-
-
+        
 
 if __name__ == '__main__':
     unittest.main()
