@@ -19,6 +19,8 @@ from algorithms.tree.bst.depth_sum import depth_sum
 from algorithms.tree.bst.height import height
 from algorithms.tree.bst.num_empty import num_empty
 from algorithms.tree.bst.delete_node import delete_node
+from algorithms.tree.bst.kth_smallest import kth_smallest
+from algorithms.tree.bst.kth_smallest import Solution as sol_ks
 
 import unittest
 
@@ -217,8 +219,10 @@ class TestBST(unittest.TestCase):
         self.assertEqual(False, self.tree.search(18))
         self.setUp()
 
-        
-    
+    def test_kth_smallest(self):
+        self.assertEqual(6, kth_smallest(self.tree.get_root(), 2))
+        sol = sol_ks()
+        self.assertEqual(6, sol.kth_smallest(self.tree.get_root(), 2))
     
 if __name__ == '__main__':
     unittest.main()
