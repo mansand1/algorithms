@@ -13,6 +13,7 @@ from algorithms.tree import construct_tree_postorder_preorder as ctpp
 from algorithms.tree import tree as Tree
 from algorithms.tree import min_height
 from algorithms.tree import max_height
+from algorithms.tree import max_path_sum
 
 from algorithms.tree.fenwick_tree.fenwick_tree import Fenwick_Tree
 
@@ -229,6 +230,38 @@ class TestMaxHeight(unittest.TestCase):
         mother.left = TestMaxHeight.createDepth(self, Tree.TreeNode(mother.val+1), 2)
         mother.right = TestMaxHeight.createDepth(self, Tree.TreeNode(mother.val+1), 1)
         self.assertEqual(max_height.max_height(mother),3)
+class TestMaxPathSum(unittest.TestCase):
+    def createDepth(self, mother, max):
+        if mother.val == max:
+            return None
+        else:
+            mother.left = Tree.TreeNode(mother.val+1)
+            mother.right = Tree.TreeNode(mother.val+1)
+            TestMaxHeight.createDepth(self,mother.left, max)
+            TestMaxHeight.createDepth(self,mother.right, max)
+            return mother
+    def test_trivial(self):
+        #Test 1
+        mother = Tree.TreeNode(0)
+        mother.left = TestMaxPathSum.createDepth(self, Tree.TreeNode(mother.val+1), 2)
+        mother.right = TestMaxPathSum.createDepth(self, Tree.TreeNode(mother.val+1), 4)
+        self.assertEqual(max_path_sum.max_path_sum(mother),108)
+        #Test 2
+        mother = Tree.TreeNode(0)
+        mother.left = TestMaxPathSum.createDepth(self, Tree.TreeNode(mother.val+1), 6)
+        mother.right = TestMaxPathSum.createDepth(self, Tree.TreeNode(mother.val+1), 4)
+        self.assertEqual(max_path_sum.max_path_sum(mother),740)
+        #Test 3
+        mother = Tree.TreeNode(0)
+        mother.left = TestMaxPathSum.createDepth(self, Tree.TreeNode(mother.val+1), 9)
+        mother.right = TestMaxPathSum.createDepth(self, Tree.TreeNode(mother.val+1), 1)
+        self.assertEqual(max_path_sum.max_path_sum(mother),8194)
+        #Test 4
+        mother = Tree.TreeNode(0)
+        mother.left = TestMaxPathSum.createDepth(self, Tree.TreeNode(mother.val+1), 5)
+        mother.right = TestMaxPathSum.createDepth(self, Tree.TreeNode(mother.val+1), 5)
+        self.assertEqual(max_path_sum.max_path_sum(mother),516)
+    
 
 if __name__ == '__main__':
     unittest.main()
