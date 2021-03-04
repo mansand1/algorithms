@@ -19,7 +19,7 @@ from algorithms.tree.bst.depth_sum import depth_sum
 from algorithms.tree.bst.height import height
 from algorithms.tree.bst.num_empty import num_empty
 from algorithms.tree.bst.delete_node import delete_node
-from algorithms.tree.bst.kth_smallest import kth_smallest
+from algorithms.tree.bst.kth_smallest import kth_smallest, Node as kNode
 from algorithms.tree.bst.kth_smallest import Solution as sol_ks
 from algorithms.tree.bst.is_bst import is_bst
 from algorithms.tree.bst.unique_bst import num_trees
@@ -28,6 +28,8 @@ from algorithms.tree.bst.array_to_bst import array_to_bst
 from algorithms.tree.bst.bst_closest_value import closest_value 
 from algorithms.tree.bst.predecessor import predecessor 
 from algorithms.tree.bst.lowest_common_ancestor import lowest_common_ancestor
+from algorithms.tree.bst.successor import successor
+from algorithms.tree.bst.serialize_deserialize import serialize, deserialize
 
 import unittest
 
@@ -200,10 +202,12 @@ class TestBST(unittest.TestCase):
         self.tree.insert(15)
         self.tree.insert(7)
         self.tree.insert(18)
+        self.assertFalse(self.tree.insert(6))
 
     def test_search(self):
         self.assertTrue(self.tree.search(12))
         self.assertFalse(self.tree.search(20))
+        self.assertTrue(self.tree.search(6))
 
     def test_size(self):
         self.assertEqual(9, self.tree.size())
@@ -221,12 +225,33 @@ class TestBST(unittest.TestCase):
         self.assertEqual(10, num_empty(self.tree.root))  
 
     def test_delete_node(self):
+        
         self.assertEqual(True, self.tree.search(18))
         delete_node(self.tree.get_root(), 18)
         self.assertEqual(False, self.tree.search(18))
         self.setUp()
+        
+        self.assertEqual(True, self.tree.search(6))
+        delete_node(self.tree.get_root(), 6)
+        self.assertEqual(False, self.tree.search(6))
+        self.setUp()
 
+        delete_node(self.tree.get_root(), 9)
+        self.setUp()
+        
     def test_kth_smallest(self):
+        n1 = kNode(100)
+        n2 = kNode(50)
+        n3 = kNode(150)
+        n4 = kNode(25)
+        n5 = kNode(75)
+        n6 = kNode(125)
+        n7 = kNode(175)
+        n1.left, n1.right = n2, n3
+        n2.left, n2.right = n4, n5
+        n3.left, n3.right = n6, n7
+        self.assertEqual(kth_smallest(n1, 2), sol_ks().kth_smallest(n1, 2))
+
         self.assertEqual(6, kth_smallest(self.tree.get_root(), 2))
         sol = sol_ks()
         self.assertEqual(6, sol.kth_smallest(self.tree.get_root(), 2))
@@ -283,7 +308,16 @@ class TestBST(unittest.TestCase):
         self.assertEqual(lowest_common_ancestor(self.tree.get_root(), bst.Node(10), bst.Node(18)).val, 12)
         self.assertEqual(lowest_common_ancestor(self.tree.get_root(), bst.Node(3), bst.Node(7)).val, 6)
         
-
+    def test_successor(self):
+        self.assertEqual(successor(self.tree.get_root(), bst.Node(9)).val, 10)
+        self.assertEqual(successor(self.tree.get_root(), bst.Node(12)).val, 15)
+        self.assertEqual(successor(self.tree.get_root(), bst.Node(8)).val, 9)
+        self.assertEqual(successor(self.tree.get_root(), bst.Node(6)).val, 7) 
+        
+    def test_serialize_deserialize(self):
+        a = serialize(self.tree.get_root())
+        self.assertEqual(a, '9 6 3 # # 8 7 # # # 12 10 # # 15 # 18 # #')
+        self.assertEqual( deserialize(a).val, self.tree.get_root().val) 
         
 
 if __name__ == '__main__':
