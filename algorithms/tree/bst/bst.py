@@ -9,8 +9,8 @@ Implement Binary Search Tree. It has method:
 import unittest
 
 class Node(object):
-    def __init__(self, data):
-        self.data = data
+    def __init__(self, val):
+        self.val = val
         self.left = None
         self.right = None
 
@@ -35,47 +35,47 @@ class BST(object):
             return 1 + self.recur_size(root.left) + self.recur_size(root.right)
 
     """
-        Search data in bst
+        Search val in bst
         Using recursion. Complexity O(logN)
     """
-    def search(self, data):
-        return self.recur_search(self.root, data)
+    def search(self, val):
+        return self.recur_search(self.root, val)
 
-    def recur_search(self, root, data):
+    def recur_search(self, root, val):
         if root is None:
             return False
-        if root.data == data:
+        if root.val == val:
             return True
-        elif data > root.data:     # Go to right root
-            return self.recur_search(root.right, data)
+        elif val > root.val:     # Go to right root
+            return self.recur_search(root.right, val)
         else:                      # Go to left root
-            return self.recur_search(root.left, data)
+            return self.recur_search(root.left, val)
 
     """
-        Insert data in bst
+        Insert val in bst
         Using recursion. Complexity O(logN)
     """
-    def insert(self, data):
+    def insert(self, val):
         if self.root:
-            return self.recur_insert(self.root, data)
+            return self.recur_insert(self.root, val)
         else:
-            self.root = Node(data)
+            self.root = Node(val)
             return True
 
-    def recur_insert(self, root, data):
-        if root.data == data:      # The data is already there
+    def recur_insert(self, root, val):
+        if root.val == val:      # The val is already there
             return False
-        elif data < root.data:     # Go to left root
+        elif val < root.val:     # Go to left root
             if root.left:          # If left root is a node
-                return self.recur_insert(root.left, data)
+                return self.recur_insert(root.left, val)
             else:                  # left root is a None
-                root.left = Node(data)
+                root.left = Node(val)
                 return True
         else:                      # Go to right root
             if root.right:         # If right root is a node
-                return self.recur_insert(root.right, data)
+                return self.recur_insert(root.right, val)
             else:
-                root.right = Node(data)
+                root.right = Node(val)
                 return True
 
     """
@@ -83,21 +83,21 @@ class BST(object):
     """
     def preorder(self, root):
         if root:
-            print(str(root.data), end = ' ')
+            print(str(root.val), end = ' ')
             self.preorder(root.left)
             self.preorder(root.right)
 
     def inorder(self, root):
         if root:
             self.inorder(root.left)
-            print(str(root.data), end = ' ')
+            print(str(root.val), end = ' ')
             self.inorder(root.right)
 
     def postorder(self, root):
         if root:
             self.postorder(root.left)
             self.postorder(root.right)
-            print(str(root.data), end = ' ')
+            print(str(root.val), end = ' ')
 
 """
     The tree is created for testing:
