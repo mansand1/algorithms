@@ -6,13 +6,13 @@ it considered as a 1 empty branch
 For example: the following tree has 10 empty branch (* is empty branch)
 
                     9 __
-                 /      \___
+                 /      \\___
                6            12
-              / \          /   \
+              / \\          /   \\
             3     8       10      15
-          /  \   / \     /  \    /   \
+          /  \\   / \\     /  \\    /   \\
          *    * 7   *   *    *  *    18
-               / \                   /  \
+               / \\                   /  \\
               *   *                 *    *
 
     empty_branch = 10
@@ -36,11 +36,11 @@ def num_empty(root):
     The tree is created for testing:
 
                     9
-                 /      \
+                 /      \\
                6         12
-              / \       /   \
+              / \\       /   \\
             3     8   10      15
-                 /              \
+                 /              \\
                 7                18
 
     num_empty = 10

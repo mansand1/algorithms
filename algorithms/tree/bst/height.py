@@ -5,11 +5,11 @@ height 1, a root node with one or two leaves as children has height 2, and so on
 For example: height of tree is 4
 
                     9
-                 /      \
+                 /      \\
                6         12
-              / \       /   \
+              / \\       /   \\
             3     8   10      15
-                 /              \
+                 /              \\
                 7                18
 
     height = 4
@@ -29,11 +29,11 @@ def height(root):
     The tree is created for testing:
 
                     9
-                 /      \
+                 /      \\
                6         12
-              / \       /   \
+              / \\       /   \\
             3     8   10      15
-                 /              \
+                 /               \\
                 7                18
 
     count_left_node = 4

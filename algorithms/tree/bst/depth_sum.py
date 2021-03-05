@@ -5,11 +5,11 @@ in a binary search tree of integers weighted by the depth of each value.
 For example:
 
                     9
-                 /      \
+                 /      \\
                6         12
-              / \       /   \
+              / \\       /   \\
             3     8   10      15
-                 /              \
+                 /              \\
                 7                18
 
     depth_sum = 1*9 + 2*(6+12) + 3*(3+8+10+15) + 4*(7+18)
@@ -35,11 +35,11 @@ def recur_depth_sum(root, n):
     The tree is created for testing:
 
                     9
-                 /      \
+                 /      \\
                6         12
-              / \       /   \
+              / \\       /   \\
             3     8   10      15
-                 /              \
+                 /              \\
                 7                18
 
     depth_sum = 1*9 + 2*(6+12) + 3*(3+8+10+15) + 4*(7+18)

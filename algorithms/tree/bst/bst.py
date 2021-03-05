@@ -103,11 +103,11 @@ class BST(object):
     The tree is created for testing:
 
                     10
-                 /      \
+                 /      \\
                6         15
-              / \       /   \
+              / \\       /   \\
             4     9   12      24
-                 /          /    \
+                 /          /    \\
                 7         20      30
                          /
                        18

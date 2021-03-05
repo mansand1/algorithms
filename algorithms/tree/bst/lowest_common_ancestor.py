@@ -8,11 +8,11 @@ According to the definition of LCA on Wikipedia:
     as descendants (where we allow a node to be a descendant of itself).”
 
         _______6______
-       /              \
+       /              \\
     ___2__          ___8__
-   /      \        /      \
+   /      \\        /      \\
    0      _4       7       9
-         /  \
+         /  \\
          3   5
 
 For example, the lowest common ancestor (LCA) of nodes 2 and 8 is 6.
