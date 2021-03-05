@@ -12,6 +12,25 @@ from algorithms.tree import construct_tree_postorder_preorder as ctpp
 
 from algorithms.tree.fenwick_tree.fenwick_tree import Fenwick_Tree
 
+
+from algorithms.tree.bst import (bst)
+from algorithms.tree.bst.count_left_node import count_left_node
+from algorithms.tree.bst.depth_sum import depth_sum
+from algorithms.tree.bst.height import height
+from algorithms.tree.bst.num_empty import num_empty
+from algorithms.tree.bst.delete_node import Solution as sol_dn
+from algorithms.tree.bst.kth_smallest import kth_smallest, Node as kNode
+from algorithms.tree.bst.kth_smallest import Solution as sol_ks
+from algorithms.tree.bst.is_bst import is_bst
+from algorithms.tree.bst.unique_bst import num_trees
+from algorithms.tree.bst.BSTIterator import BSTIterator 
+from algorithms.tree.bst.array_to_bst import array_to_bst 
+from algorithms.tree.bst.bst_closest_value import closest_value 
+from algorithms.tree.bst.predecessor import predecessor 
+from algorithms.tree.bst.lowest_common_ancestor import lowest_common_ancestor
+from algorithms.tree.bst.successor import successor
+from algorithms.tree.bst.serialize_deserialize import serialize, deserialize
+
 import unittest
 
 
@@ -169,6 +188,136 @@ class TestFenwickTree(unittest.TestCase):
         freq[2] += 11
         ft.update_bit(bit_tree, 2, 11)
         self.assertEqual(23, ft.get_sum(bit_tree, 4))
+
+class TestBST(unittest.TestCase):
+    def setUp(self):
+        self.tree = bst.BST()
+        self.tree.insert(9)
+        self.tree.insert(6)
+        self.tree.insert(12)
+        self.tree.insert(3)
+        self.tree.insert(8)
+        self.tree.insert(10)
+        self.tree.insert(15)
+        self.tree.insert(7)
+        self.tree.insert(18)
+        self.assertFalse(self.tree.insert(6))
+
+    def test_search(self):
+        self.assertTrue(self.tree.search(12))
+        self.assertFalse(self.tree.search(20))
+        self.assertTrue(self.tree.search(6))
+
+    def test_size(self):
+        self.assertEqual(9, self.tree.size())
+
+    def test_count_left_node(self):
+        self.assertEqual(4, count_left_node(self.tree.root))
+
+    def test_depth_sum(self):
+        self.assertEqual(253, depth_sum(self.tree.root, 4))
+
+    def test_height(self):
+        self.assertEqual(4, height(self.tree.root))
+
+    def test_num_empty(self):
+        self.assertEqual(10, num_empty(self.tree.root))  
+
+    def test_delete_node(self):
+        
+        dn = sol_dn()
+        self.assertEqual(True, self.tree.search(18))
+        dn.delete_node(self.tree.get_root(), 18)
+        self.assertEqual(False, self.tree.search(18))
+        self.setUp()
+        
+        self.assertEqual(True, self.tree.search(6))
+        dn.delete_node(self.tree.get_root(), 6)
+        self.assertEqual(False, self.tree.search(6))
+        self.setUp()
+
+        dn.delete_node(self.tree.get_root(), 9)
+        self.setUp()
+        
+    def test_kth_smallest(self):
+        n1 = kNode(100)
+        n2 = kNode(50)
+        n3 = kNode(150)
+        n4 = kNode(25)
+        n5 = kNode(75)
+        n6 = kNode(125)
+        n7 = kNode(175)
+        n1.left, n1.right = n2, n3
+        n2.left, n2.right = n4, n5
+        n3.left, n3.right = n6, n7
+        self.assertEqual(kth_smallest(n1, 2), sol_ks().kth_smallest(n1, 2))
+
+        self.assertEqual(6, kth_smallest(self.tree.get_root(), 2))
+        sol = sol_ks()
+        self.assertEqual(6, sol.kth_smallest(self.tree.get_root(), 2))
+
+    def test_is_bst(self):
+        good_bst = bst.Node(2)
+        good_bst.left = bst.Node(1)
+        good_bst.right = bst.Node(3)
+        self.assertTrue(is_bst(good_bst))
+
+        bad_bst = bst.Node(1)
+        bad_bst.left = bst.Node(2)
+        bad_bst.right = bst.Node(3)   
+        self.assertFalse(is_bst(bad_bst))        
+
+    def test_unique_bst(self):
+        self.assertEqual(num_trees(3), 5)
+
+    def test_bst_iterator(self):
+        iterator = BSTIterator(self.tree.get_root())
+        found_nodes = []
+        while(iterator.has_next()):
+            found_nodes.append(iterator.next())
+        self.assertEqual([3, 6, 7, 8, 9, 10, 12, 15, 18], found_nodes)
+    
+    def test_array_to_bst(self):
+        values = [3, 6, 7, 8, 9]
+        root_node = array_to_bst(values)
+
+        # Check that all nodes exist
+        iterator = BSTIterator(root_node)
+        found_nodes = []
+        while(iterator.has_next()):
+            found_nodes.append(iterator.next())
+        self.assertEqual(values, found_nodes)
+
+        # Check balanced height
+        self.assertEqual(height(root_node), 3)
+
+    def test_bst_closest_value(self):
+        self.assertEqual(closest_value(self.tree.get_root(), 10.9), 10)
+        self.assertEqual(closest_value(self.tree.get_root(), 4.4), 3)
+        self.assertEqual(closest_value(self.tree.get_root(), 4.5), 6)
+        self.assertEqual(closest_value(self.tree.get_root(), 4.6), 6)
+
+    def test_predecessor(self):
+        self.assertEqual(predecessor(self.tree.get_root(), bst.Node(9)).val, 8)
+        self.assertEqual(predecessor(self.tree.get_root(), bst.Node(12)).val, 10)
+        self.assertEqual(predecessor(self.tree.get_root(), bst.Node(8)).val, 7)
+        self.assertEqual(predecessor(self.tree.get_root(), bst.Node(6)).val, 3)
+    
+    def test_lowest_common_ancestor(self):
+        self.assertEqual(lowest_common_ancestor(self.tree.get_root(), bst.Node(7), bst.Node(18)).val, 9)
+        self.assertEqual(lowest_common_ancestor(self.tree.get_root(), bst.Node(10), bst.Node(18)).val, 12)
+        self.assertEqual(lowest_common_ancestor(self.tree.get_root(), bst.Node(3), bst.Node(7)).val, 6)
+        
+    def test_successor(self):
+        self.assertEqual(successor(self.tree.get_root(), bst.Node(9)).val, 10)
+        self.assertEqual(successor(self.tree.get_root(), bst.Node(12)).val, 15)
+        self.assertEqual(successor(self.tree.get_root(), bst.Node(8)).val, 9)
+        self.assertEqual(successor(self.tree.get_root(), bst.Node(6)).val, 7) 
+        
+    def test_serialize_deserialize(self):
+        a = serialize(self.tree.get_root())
+        self.assertEqual(a, '9 6 3 # # 8 7 # # # 12 10 # # 15 # 18 # #')
+        self.assertEqual( deserialize(a).val, self.tree.get_root().val) 
 
 if __name__ == '__main__':
     unittest.main()

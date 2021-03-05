@@ -16,8 +16,8 @@ For example: height of tree is 4
 
 """
 import unittest
-from bst import Node
-from bst import bst
+from algorithms.tree.bst.bst import Node
+from algorithms.tree.bst.bst import BST
 
 def height(root):
     if root is None:
@@ -42,7 +42,7 @@ def height(root):
 
 class TestSuite(unittest.TestCase):
     def setUp(self):
-        self.tree = bst()
+        self.tree = BST()
         self.tree.insert(9)
         self.tree.insert(6)
         self.tree.insert(12)

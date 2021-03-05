@@ -16,8 +16,8 @@ For example:
 
 """
 import unittest
-from bst import Node
-from bst import bst
+from algorithms.tree.bst.bst import Node
+from algorithms.tree.bst.bst import BST
 
 def depth_sum(root, n):
     if root:
@@ -27,9 +27,9 @@ def recur_depth_sum(root, n):
     if root is None:
         return 0
     elif root.left is None and root.right is None:
-        return root.data * n
+        return root.val * n
     else:
-        return n * root.data + recur_depth_sum(root.left, n+1) + recur_depth_sum(root.right, n+1)
+        return n * root.val + recur_depth_sum(root.left, n+1) + recur_depth_sum(root.right, n+1)
 
 """
     The tree is created for testing:
@@ -48,7 +48,7 @@ def recur_depth_sum(root, n):
 
 class TestSuite(unittest.TestCase):
     def setUp(self):
-        self.tree = bst()
+        self.tree = BST()
         self.tree.insert(9)
         self.tree.insert(6)
         self.tree.insert(12)
